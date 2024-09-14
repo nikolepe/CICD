@@ -1,6 +1,7 @@
 #include "s21_grep.h"
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+ {
   char **filename = NULL;
   char **massive = NULL;
   char *reg_name = NULL;
