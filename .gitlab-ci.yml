@@ -6,7 +6,7 @@ building:
   tags:
     - build
   script:
-    - cd src/cat && make s21_cat && cd ./../grep && make s21_grep
+    - cd src/cat && make s21_cat && cd ../grep && make s21_grep
   artifacts:
     paths:
       - src/cat/s21_cat
