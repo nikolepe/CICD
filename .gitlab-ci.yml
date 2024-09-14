@@ -1,5 +1,15 @@
 stages:
+  - style
   - build
+
+styletest:
+  stage: style
+  tags:
+    - style
+  script:
+    - clang-format -style=Google -Werror -n src/cat/s21_cat.* src/grep/s21_grep.*
+  only:
+    - develop
 
 building:
   stage: build
