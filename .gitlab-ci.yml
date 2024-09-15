@@ -39,3 +39,14 @@ test-work:
     - if [[ $cat_fail > 0 ]] || [[ $grep_fail != 0 ]]; then exit 1; fi
   only:
     - develop
+
+deploy-work:
+  stage: deploy
+  tags:
+    - deploy
+  when: manual
+  script:
+    - cd src
+    - bash deploy.sh
+  only:
+    - develop
