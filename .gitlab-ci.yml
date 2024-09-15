@@ -10,6 +10,8 @@ styletest:
     - style
   script:
     - clang-format -style=Google -Werror -n src/cat/s21_cat.* src/grep/s21_grep.*
+  after_script:
+    - bash src/telegram.sh
   only:
     - develop
 
@@ -19,6 +21,8 @@ building:
     - build
   script:
     - cd src/cat && make s21_cat && cd ../grep && make s21_grep
+  after_script:
+    - bash src/telegram.sh
   artifacts:
     paths:
       - src/cat/s21_cat
@@ -38,6 +42,8 @@ test-work:
     - grep_out=$(make test)
     - grep_fail=$(echo "$grep_out" | grep "FAIL:" | awk '{print $2}')
     - if [[ $cat_fail > 0 ]] || [[ $grep_fail != 0 ]]; then exit 1; fi
+  after_script:
+    - bash src/telegram.sh
   only:
     - develop
 
@@ -49,5 +55,7 @@ deploy-work:
   script:
     - cd src
     - bash deploy.sh
+  after_script:
+    - bash src/telegram.sh
   only:
     - develop
