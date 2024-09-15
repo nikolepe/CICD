@@ -30,8 +30,12 @@ test-work:
   tags:
     - test
   script:
-    - cd src/cat && make test
-    - cd ../grep && make test
-  when: on_success
+    - cd src/cat
+    - cat_out=$(make test)
+    - cat_fail=$(echo "$cat_out" | grep "FAIL:" | awk '{print $2}')
+    - cd ../grep
+    - grep_out=$(make test)
+    - grep_fail=$(echo "$grep_out" | grep "FAIL:" | awk '{print $2}')
+    - if [[ $cat_fail > 0 ]] || [[ $grep_fail != 0 ]]; then exit 1; fi
   only:
     - develop
