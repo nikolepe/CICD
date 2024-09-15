@@ -31,8 +31,8 @@ test-work:
     - test
   script:
     - (cd src/cat && make test) 2>/dev/null 1>cat_test.txt
-    - (cd src/grep && make test) 2>/dev/null 1>grep_test.txt
-    - |
+    - (cd ../grep && make test) 2>/dev/null 1>grep_test.txt
+    - !
       if ! grep -q "FAIL: 0" cat_test.txt || ! grep -q "FAIL: 0" grep_test.txt; then
         exit 1;
       fi
