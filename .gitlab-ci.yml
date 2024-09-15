@@ -25,3 +25,18 @@ building:
     expire_in: 30 days
   only:
     - develop
+test-work:
+  stage: test
+  tags:
+    - test
+  script:
+    - (cd src/cat && make test) 2>/dev/null 1>cat_test.txt
+    - (cd src/grep && make test) 2>/dev/null 1>grep_test.txt
+    - |
+      if ! grep -q "FAIL: 0" cat_test.txt || ! grep -q "FAIL: 0" grep_test.txt; then
+        exit 1;
+      fi
+  after_script:
+    - *notify
+  only:
+    - develop
