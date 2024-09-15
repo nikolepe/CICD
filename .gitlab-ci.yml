@@ -1,6 +1,7 @@
 stages:
   - style
   - build
+  - test
 
 styletest:
   stage: style
@@ -22,5 +23,20 @@ building:
       - src/cat/s21_cat
       - src/grep/s21_grep
     expire_in: 30 days
+  only:
+    - develop
+tests:
+  stage: test
+  tags:
+    - test
+  script:
+    - (cd src/cat && make test) 2>/dev/null 1>cat_test.txt
+    - (cd src/grep && make test) 2>/dev/null 1>grep_test.txt
+    - |
+      if ! grep -q "FAIL: 0" cat_test.txt || ! grep -q "FAIL: 0" grep_test.txt; then
+        exit 1
+      fi
+  after_script:
+    - *notify
   only:
     - develop

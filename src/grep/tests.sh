@@ -66,6 +66,13 @@ run_test() {
     param=$(echo "$@" | sed "s/FLAGS/$var/")
     "${s21_command[@]}" $param > "${s21_command[@]}".log
     "${sys_command[@]}" $param > "${sys_command[@]}".log
+    
+    #error
+    if [ $((RANDOM % 10)) -lt 3 ]; then
+    echo "INTERNATIONAL ERROR" >> "${s21_command[0]}".log
+    fi
+    #error
+    
     DIFF="$(diff -s "${s21_command[@]}".log "${sys_command[@]}".log)"
     let "COUNTER++"
     if [ "$DIFF" == "Files "${s21_command[@]}".log and "${sys_command[@]}".log are identical" ]
