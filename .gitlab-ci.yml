@@ -32,5 +32,6 @@ test-work:
   script:
     - cd src/cat && make test
     - cd ../grep && make test
+  when: on_success
   only:
     - develop
