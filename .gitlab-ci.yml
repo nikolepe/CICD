@@ -36,7 +36,5 @@ test-work:
       if ! grep -q "FAIL: 0" cat_test.txt || ! grep -q "FAIL: 0" grep_test.txt; then
         exit 1;
       fi
-  after_script:
-    - *notify
   only:
     - develop
