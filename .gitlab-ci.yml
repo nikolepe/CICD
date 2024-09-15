@@ -2,6 +2,7 @@ stages:
   - style
   - build
   - test
+  - deploy
 
 styletest:
   stage: style
